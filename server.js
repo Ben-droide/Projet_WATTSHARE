@@ -4,11 +4,14 @@ const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
 const helmet = require('helmet');
+
+// --- IMPORTS DES ROUTES ---
 const authRoutes = require('./routes/auth');
-const stationRoutes = require('./routes/stations'); // Importation
+const stationRoutes = require('./routes/stations');
+const bookingRoutes = require('./routes/bookingRoutes'); // Ajouté ici
 const logger = require('./logger'); 
 
-const app = express(); // 1. On crée l'application d'abord !
+const app = express();
 const server = http.createServer(app);
 
 // --- CONFIGURATION & SÉCURITÉ ---
@@ -19,7 +22,8 @@ app.disable('x-powered-by');
 
 // --- ROUTES API ---
 app.use('/api/auth', authRoutes);
-app.use('/api/stations', stationRoutes); // 2. On branche les stations après avoir créé 'app'
+app.use('/api/stations', stationRoutes);
+app.use('/api/bookings', bookingRoutes); // Placé avant le démarrage du serveur
 
 // --- LOGIQUE TEMPS RÉEL (SOCKET.IO) ---
 const io = new Server(server, {
