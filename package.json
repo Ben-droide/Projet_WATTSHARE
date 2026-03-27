@@ -20,5 +20,8 @@
     "mariadb": "^3.5.2",
     "socket.io": "^4.8.3",
     "socket.io-client": "^4.8.3"
+  },
+  "devDependencies": {
+    "dependency-cruiser": "^17.3.10"
   }
 }

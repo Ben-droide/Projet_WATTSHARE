@@ -24,11 +24,12 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: "Mot de passe incorrect" });
         }
 
-        const token = jwt.sign(
-            { id: user.id, username: user.username, role: user.role },
-            SECRET_KEY,
-            { expiresIn: '1h' }
-        );
+        // Au lieu d'utiliser SECRET_KEY (la variable fixe en haut)
+const token = jwt.sign(
+    { id: user.id, username: user.username, role: user.role },
+    process.env.JWT_SECRET || 'MaCleDeSecoursSiLeEnvNeMarchePas', // 👈 On force la lecture ici
+    { expiresIn: '1h' }
+);
 
         res.json({ 
             message: "Connexion réussie", 
